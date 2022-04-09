@@ -57,8 +57,8 @@ export default class App extends Component<AppProps, AppState> {
   generateMenu() {
     return (
       <Menu>
-        <Menu.Item name="home">
-          <Link to="/">Home</Link>
+        <Menu.Item name="coupons">
+          <Link to="/">Coupons</Link>
         </Menu.Item>
         <Menu.Item name="add">
           <Link to="/coupons/add">Add</Link>
