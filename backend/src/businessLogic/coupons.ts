@@ -26,6 +26,11 @@ export async function getAllCoupons(userId: string): Promise<CouponItem[]> {
     return couponsAccess.getAllCoupons(userId);
 }
 
+export async function getCoupon(couponId: string, userId: string): Promise<CouponItem> {
+    return couponsAccess.getCouponById(couponId, userId);
+}
+
+
 export async function createCouponItem(createCouponRequest: CreateCouponRequest, userId: string): Promise<CouponItem> {
     logger.info('Creating new Coupon for user ', userId);
 

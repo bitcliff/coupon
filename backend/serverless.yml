@@ -67,6 +67,20 @@ functions:
   Auth:
     handler: src/lambda/auth/auth0Authorizer.handler
 
+  # Provide iamRoleStatements property for performing Actions on DynamoDB
+  GetCoupon:
+    handler: src/lambda/http/getCoupon.handler
+    events:
+      - http:
+          method: get
+          path: coupons/{couponId}
+          cors: true
+          authorizer: Auth
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:GetItem
+        Resource: !GetAtt CouponsTable.Arn
 
   # Provide iamRoleStatements property for performing Actions on DynamoDB
   GetCoupons:
@@ -82,7 +96,6 @@ functions:
         Action:
           - dynamodb:Query
         Resource: !GetAtt CouponsTable.Arn
-
 
   # Provide iamRoleStatements property. Decide the Actions and AWS Resource. 
   # To refer to an AWS resource defined in the "Resources" section, you can use "Resource: !GetAtt <resource-name>.Arn"

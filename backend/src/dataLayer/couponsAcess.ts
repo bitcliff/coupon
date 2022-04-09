@@ -32,6 +32,21 @@ export class CouponsAccess {
         return items as CouponItem[]
     }
 
+    async getCouponById(couponId: string, userId: string): Promise<CouponItem> {
+        console.log(`getting coupon item for user ${userId} and ${couponId}`)
+
+        const result = await this.docClient.get({
+            TableName: this.couponsTable,
+            Key:{
+                "userId": userId,
+                "couponId": couponId
+            }
+        }).promise();
+
+        const item = result.Item
+        return item as CouponItem
+    }
+
     async createCoponItem(coupon: CouponItem): Promise<CouponItem> {
         console.log('Creating new coupon item')
         await this.docClient.put({
