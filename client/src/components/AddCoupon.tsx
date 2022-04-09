@@ -10,7 +10,7 @@ interface Iprops {
 export const AddCoupon: React.FC<Iprops> = (props: Iprops) => {
     type FormFields = {
         code: string,
-        shop: number,
+        shop: string,
         dueDate: string
     }
     const { register, handleSubmit, formState: { errors }, reset } = useForm<FormFields>();
@@ -29,10 +29,12 @@ export const AddCoupon: React.FC<Iprops> = (props: Iprops) => {
     async function submit(values: FormFields) {
         console.log(values)
         try {
-            const name = values.code
+            const code = values.code
+            const shop = values.shop
             const dueDate = values.dueDate
             await createCoupon(props.auth.getIdToken(), {
-                name,
+                code,
+                shop,
                 dueDate
             })
             alert('Coupon saved')

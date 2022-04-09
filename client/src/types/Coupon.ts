@@ -1,7 +1,8 @@
 export interface Coupon {
   couponId: string
   createdAt: string
-  name: string
+  code: string
+  shop: string
   dueDate: string
   used: boolean
   attachmentUrl?: string

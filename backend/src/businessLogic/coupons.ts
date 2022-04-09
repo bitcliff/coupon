@@ -36,7 +36,8 @@ export async function createCouponItem(createCouponRequest: CreateCouponRequest,
         userId: userId,
         couponId: couponId,
         createdAt: timestamp,
-        name: createCouponRequest.name,
+        code: createCouponRequest.code,
+        shop: createCouponRequest.shop,
         dueDate: createCouponRequest.dueDate,
         used: false
     });
@@ -46,7 +47,8 @@ export async function updateCouponItem(couponId: string, updateCouponRequest: Up
     logger.info(`Udating coupon ${couponId} of user ${userId}`);
 
     return await couponsAccess.updateCouponItem({
-        name: updateCouponRequest.name,
+        code: updateCouponRequest.code,
+        shop: updateCouponRequest.shop,
         dueDate: updateCouponRequest.dueDate,
         used: updateCouponRequest.used
     },

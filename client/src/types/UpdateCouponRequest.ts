@@ -1,5 +1,6 @@
 export interface UpdateCouponRequest {
-  name: string
+  code: string
+  shop: string
   dueDate: string
   used: boolean
 }

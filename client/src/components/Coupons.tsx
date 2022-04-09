@@ -48,7 +48,8 @@ export class Coupons extends React.PureComponent<CouponsProps, CouponsState> {
     try {
       const dueDate = this.calculateDueDate()
       const newCoupon = await createCoupon(this.props.auth.getIdToken(), {
-        name: this.state.newCouponName,
+        code: this.state.newCouponName,
+        shop: 'someShop',
         dueDate
       })
       this.setState({
@@ -75,7 +76,8 @@ export class Coupons extends React.PureComponent<CouponsProps, CouponsState> {
     try {
       const coupon = this.state.coupons[pos]
       await patchCoupon(this.props.auth.getIdToken(), coupon.couponId, {
-        name: coupon.name,
+        code: coupon.code,
+        shop: coupon.shop,
         dueDate: coupon.dueDate,
         used: !coupon.used
       })
@@ -173,7 +175,7 @@ export class Coupons extends React.PureComponent<CouponsProps, CouponsState> {
                 />
               </Grid.Column>
               <Grid.Column width={10} verticalAlign="middle">
-                {coupon.name}
+                {coupon.code} ({coupon.shop})
               </Grid.Column>
               <Grid.Column width={3} floated="right">
                 {coupon.dueDate}

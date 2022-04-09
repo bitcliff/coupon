@@ -51,14 +51,15 @@ export class CouponsAccess {
                 couponId: couponId
             },
             ExpressionAttributeNames: {
-                '#coupon_name': 'name',
+                '#coupon_code': 'code',
             },
             ExpressionAttributeValues: {
-                ':name': coupon.name,
+                ':code': coupon.code,
+                ':shop': coupon.shop,
                 ':dueDate': coupon.dueDate,
                 ':used': coupon.used,
             },
-            UpdateExpression: 'SET #coupon_name = :name, dueDate = :dueDate, used = :used',
+            UpdateExpression: 'SET #coupon_code = :code, shop = :shop, dueDate = :dueDate, used = :used',
             ReturnValues: 'ALL_NEW',
         };
 

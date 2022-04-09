@@ -1,5 +1,6 @@
 export interface CouponUpdate {
-  name: string
+  code: string
+  shop: string
   dueDate: string
   used: boolean
 }

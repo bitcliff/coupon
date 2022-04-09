@@ -3,11 +3,17 @@
   "title": "update-coupon",
   "type": "object",
   "properties": {
-    "name": {
+    "code": {
       "type": "string",
       "pattern": "^[a-zA-Z0-9]+$",
-      "minLength": 5,
-      "maxLength": 20
+      "minLength": 1,
+      "maxLength": 255
+    },
+    "shop": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9]+$",
+      "minLength": 1,
+      "maxLength": 255
     },
     "dueDate": {
      "type": "string",
@@ -18,8 +24,8 @@
     }
   },
   "required": [
-    "name",
-    "dueDate",
+    "code",
+    "shop",
     "used"
   ],
   "additionalProperties": false

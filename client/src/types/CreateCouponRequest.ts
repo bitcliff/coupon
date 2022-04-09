@@ -1,4 +1,5 @@
 export interface CreateCouponRequest {
-  name: string
+  code: string
+  shop: string
   dueDate: string
 }
