@@ -17,6 +17,19 @@ export async function getCoupons(idToken: string): Promise<Coupon[]> {
   return response.data.items
 }
 
+export async function getCoupon(idToken: string, couponId: string): Promise<Coupon> {
+  console.log('Fetching coupon')
+
+  const response = await Axios.get(`${apiEndpoint}/coupons/${couponId}`, {
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${idToken}`
+    },
+  })
+  console.log('Coupon:', response.data)
+  return response.data.item
+}
+
 export async function createCoupon(
   idToken: string,
   newCoupon: CreateCouponRequest
