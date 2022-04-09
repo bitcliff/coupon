@@ -2,7 +2,7 @@ import React from "react"
 import { useForm } from "react-hook-form";
 import Auth from '../auth/Auth'
 import dateFormat from 'dateformat'
-import { createCoupon, deleteCoupon, getCoupons, patchCoupon } from '../api/coupons-api'
+import { createCoupon } from '../api/coupons-api'
 interface Iprops {
     auth: Auth
 }
@@ -17,13 +17,6 @@ export const AddCoupon: React.FC<Iprops> = (props: Iprops) => {
 
     const errorFormValues = (errors: any) => {
         console.log("error", errors)
-    }
-
-    function calculateDueDate(): string {
-        const date = new Date()
-        date.setDate(date.getDate() + 7)
-
-        return dateFormat(date, 'yyyy-mm-dd') as string
     }
 
     async function submit(values: FormFields) {
@@ -45,6 +38,7 @@ export const AddCoupon: React.FC<Iprops> = (props: Iprops) => {
 
     return (
         <div>
+            <h1>Add a new Coupon code</h1>
             <form onSubmit={handleSubmit(submit, errorFormValues)}>
                 <label>Coupon code</label>
                 <input type="code" {...register("code", { required: true })} name="code" /><br />

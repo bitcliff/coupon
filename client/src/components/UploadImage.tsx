@@ -78,7 +78,7 @@ export class UploadImage extends React.PureComponent<
     return (
       <div>
         <h1>Upload new image</h1>
-
+        <p>E.g. photo of the code or a QR-Code...</p>
         <Form onSubmit={this.handleSubmit}>
           <Form.Field>
             <label>File</label>

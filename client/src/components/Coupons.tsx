@@ -1,4 +1,3 @@
-import dateFormat from 'dateformat'
 import { History } from 'history'
 import update from 'immutability-helper'
 import * as React from 'react'
@@ -9,12 +8,11 @@ import {
   Grid,
   Header,
   Icon,
-  Input,
   Image,
   Loader
 } from 'semantic-ui-react'
 
-import { createCoupon, deleteCoupon, getCoupons, patchCoupon } from '../api/coupons-api'
+import { deleteCoupon, getCoupons, patchCoupon } from '../api/coupons-api'
 import Auth from '../auth/Auth'
 import { Coupon } from '../types/Coupon'
 
@@ -40,25 +38,12 @@ export class Coupons extends React.PureComponent<CouponsProps, CouponsState> {
     this.setState({ newCouponName: event.target.value })
   }
 
-  onEditButtonClick = (couponId: string) => {
+  onUploadButtonClick = async (couponId: string) => {
     this.props.history.push(`/coupons/${couponId}/uploadImage`)
   }
 
-  onCouponCreate = async (event: React.ChangeEvent<HTMLButtonElement>) => {
-    try {
-      const dueDate = this.calculateDueDate()
-      const newCoupon = await createCoupon(this.props.auth.getIdToken(), {
-        code: this.state.newCouponName,
-        shop: 'someShop',
-        dueDate
-      })
-      this.setState({
-        coupons: [...this.state.coupons, newCoupon],
-        newCouponName: ''
-      })
-    } catch {
-      alert('Coupon creation failed')
-    }
+  onEditButtonClick = async (couponId: string) => {
+    this.props.history.push(`/coupons/${couponId}/edit`)
   }
 
   onCouponDelete = async (couponId: string) => {
@@ -111,36 +96,8 @@ export class Coupons extends React.PureComponent<CouponsProps, CouponsState> {
     return (
       <div>
         <Header as="h1">Coupons</Header>
-
-        {this.renderCreateCouponInput()}
-
         {this.renderCoupons()}
       </div>
-    )
-  }
-
-  renderCreateCouponInput() {
-    return (
-      <Grid.Row>
-        <Grid.Column width={16}>
-          <Input
-            action={{
-              color: 'teal',
-              labelPosition: 'left',
-              icon: 'add',
-              content: 'Add new coupon code',
-              onClick: this.onCouponCreate
-            }}
-            fluid
-            actionPosition="left"
-            placeholder="save money next time"
-            onChange={this.handleNameChange}
-          />
-        </Grid.Column>
-        <Grid.Column width={16}>
-          <Divider />
-        </Grid.Column>
-      </Grid.Row>
     )
   }
 
@@ -175,16 +132,20 @@ export class Coupons extends React.PureComponent<CouponsProps, CouponsState> {
                 />
               </Grid.Column>
               <Grid.Column width={10} verticalAlign="middle">
-                {coupon.code} ({coupon.shop})
+                {coupon.code} ({coupon.shop})              
+                {coupon.attachmentUrl && (
+                <Image src={coupon.attachmentUrl} size="small" wrapped />
+              )}
               </Grid.Column>
               <Grid.Column width={3} floated="right">
                 {coupon.dueDate}
               </Grid.Column>
+
               <Grid.Column width={1} floated="right">
                 <Button
                   icon
                   color="blue"
-                  onClick={() => this.onEditButtonClick(coupon.couponId)}
+                  onClick={() => this.onUploadButtonClick(coupon.couponId)}
                 >
                   <Icon name="upload" />
                 </Button>
@@ -198,9 +159,6 @@ export class Coupons extends React.PureComponent<CouponsProps, CouponsState> {
                   <Icon name="delete" />
                 </Button>
               </Grid.Column>
-              {coupon.attachmentUrl && (
-                <Image src={coupon.attachmentUrl} size="small" wrapped />
-              )}
               <Grid.Column width={16}>
                 <Divider />
               </Grid.Column>
@@ -209,12 +167,5 @@ export class Coupons extends React.PureComponent<CouponsProps, CouponsState> {
         })}
       </Grid>
     )
-  }
-
-  calculateDueDate(): string {
-    const date = new Date()
-    date.setDate(date.getDate() + 7)
-
-    return dateFormat(date, 'yyyy-mm-dd') as string
   }
 }
