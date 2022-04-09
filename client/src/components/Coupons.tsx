@@ -41,7 +41,7 @@ export class Coupons extends React.PureComponent<CouponsProps, CouponsState> {
   }
 
   onEditButtonClick = (couponId: string) => {
-    this.props.history.push(`/coupons/${couponId}/edit`)
+    this.props.history.push(`/coupons/${couponId}/uploadImage`)
   }
 
   onCouponCreate = async (event: React.ChangeEvent<HTMLButtonElement>) => {
@@ -186,7 +186,7 @@ export class Coupons extends React.PureComponent<CouponsProps, CouponsState> {
                   color="blue"
                   onClick={() => this.onEditButtonClick(coupon.couponId)}
                 >
-                  <Icon name="pencil" />
+                  <Icon name="upload" />
                 </Button>
               </Grid.Column>
               <Grid.Column width={1} floated="right">

@@ -9,7 +9,7 @@ enum UploadState {
   UploadingFile,
 }
 
-interface EditCouponProps {
+interface UploadImageProps {
   match: {
     params: {
       couponId: string
@@ -18,16 +18,16 @@ interface EditCouponProps {
   auth: Auth
 }
 
-interface EditCouponState {
+interface UploadImageState {
   file: any
   uploadState: UploadState
 }
 
-export class EditCoupon extends React.PureComponent<
-  EditCouponProps,
-  EditCouponState
+export class UploadImage extends React.PureComponent<
+  UploadImageProps,
+  UploadImageState
 > {
-  state: EditCouponState = {
+  state: UploadImageState = {
     file: undefined,
     uploadState: UploadState.NoUpload
   }

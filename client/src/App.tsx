@@ -3,7 +3,7 @@ import { Link, Route, Router, Switch } from 'react-router-dom'
 import { Grid, Menu, Segment } from 'semantic-ui-react'
 
 import Auth from './auth/Auth'
-import { EditCoupon } from './components/EditCoupon'
+import { UploadImage } from './components/UploadImage'
 import { LogIn } from './components/LogIn'
 import { NotFound } from './components/NotFound'
 import { Coupons } from './components/Coupons'
@@ -109,10 +109,10 @@ export default class App extends Component<AppProps, AppState> {
         />
 
         <Route
-          path="/coupons/:couponId/edit"
+          path="/coupons/:couponId/uploadImage"
           exact
           render={props => {
-            return <EditCoupon {...props} auth={this.props.auth} />
+            return <UploadImage {...props} auth={this.props.auth} />
           }}
         />
 
